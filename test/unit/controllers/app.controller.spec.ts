@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from '../../../src/controllers/app.controller';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -8,14 +7,13 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
     }).compile();
   });
 
-  describe('getHello', () => {
-    it('should return "Hello World!"', () => {
+  describe('healthCheck', () => {
+    it('should return status: "RUNNING"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.healthCheck()).toMatchObject({ status: "RUNNING" });
     });
   });
 });
